@@ -91,6 +91,16 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
 String StringStmp=st_w.nextToken();
 if(re.test(StringStmp,"^\\%\\w+\\%$")){
             System.out.println("Use Var:"+StringStmp);
+            String str=StringStmp.substring(1,StringStmp.length()-1);
+            System.out.println("***********");
+            System.out.println(str);
+            System.out.println("***********");
+            
+            Var myVar=(Var)mapForVarClasses.get(str);
+            System.out.println("))))))))))))))");
+            System.out.println(StringStmp+"="+myVar.getValue());
+            System.out.println(")))))))))))))))");
+            
 }
 
               
