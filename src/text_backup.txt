@@ -1,4 +1,3 @@
 set int myVar=700.675;
 set String myVar2=Privet;
 MyOut(%myVar%);set float a=18;
-%myVar%;
