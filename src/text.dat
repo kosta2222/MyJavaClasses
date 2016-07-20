@@ -1,4 +1,4 @@
-set int myVar=700.675;
-set String myVar2=Privet;
-MyOut(%myVar%);set float a=18;
-%myVar%;
+set int i_myVar=700.675;
+set String i_myVar2=<Privet>;
+MyOut(%i_myVar%);set float i_a=18;
+%i_myVar%;

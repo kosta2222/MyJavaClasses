@@ -15,9 +15,14 @@ String StringStmp=st.nextToken();
 
 if(re.test(StringStmp,"^\\d+$") || re.test(StringStmp,"^\\d+\\.\\d+$"))
 {
-    System.out.println("number int or float :"+StringStmp);
+    System.out.println("number int or float :"+StringStmp);//<<< isSet
 }
-
+else if(re.test(StringStmp,"^i_\\w+$")){
+            System.out.println("Indificator:"+StringStmp);//<<< isSet
+        }
+else if(re.test(StringStmp,"^<\\w+>$")){
+            System.out.println("String:"+StringStmp);//<<<  isSet
+        }
 
     }
 
