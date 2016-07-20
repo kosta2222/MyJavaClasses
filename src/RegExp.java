@@ -8,7 +8,7 @@ Pattern p=Pattern.compile(pattern);
 Matcher m=p.matcher(testString);
 return m.matches();}
 public void message(boolean bool,String message){
-    if(bool=false)
+    if(bool==false)
         System.out.println("Error ["+message+"]");
 }
 }
