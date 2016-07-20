@@ -14,7 +14,7 @@ class ReadBytes{
 
     public ReadBytes(File f,String charset) {
          mr=new FileRider(f,charset);
-         //l=new ArrayList<String>();
+         l=new ArrayList<String>();
 	sb=new StringBuilder();
     }
     public ArrayList<String> read(char delimeter){
@@ -40,15 +40,13 @@ sb.append(s);
 }
 else if((char)charRead ==delimeter)
     sb.append(';');
-
-   
-        
+       
          
   }
-    System.out.println(sb);
-    StringTokenizer st=new StringTokenizer(sb.toString(),"=",false);
+     StringTokenizer st=new StringTokenizer(sb.toString(),";",false);
 while(st.hasMoreTokens()){
 String StringStmp=st.nextToken();
+l.add(StringStmp);
 
 }
 }
@@ -68,11 +66,12 @@ return l;
 }
     }
 
-class Main  {
+/*class Main  {
 public static void main(String args[]){
 File f=new File("D:\\NetBeansProjects\\MyOwnLan\\src\\text.dat");
     ReadBytes rb=new ReadBytes(f,"cp1251");
-     rb.read(']');
+     //rb.read(']');
+     System.out.println(rb.read(']'));
 }
-}
+}*/
 
