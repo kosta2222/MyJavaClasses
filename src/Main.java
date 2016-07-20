@@ -1,7 +1,9 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.StringTokenizer;
 class Var{
 private String type;
@@ -31,13 +33,24 @@ private String value;
     public String getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return  "type=" + type + ", indificator=" + indificator + ", value=" + value ;
+    }
     
 
 }
 class ExpParser{
+    Map  mapForVarClasses=null;
+
+    public ExpParser() {
+        mapForVarClasses=new HashMap<String,Var>();
+    }
+    
     public void oper(String sIn,String osNewLine,int substringOffset){//substringOffset depends of osNewLine
-RegExp re=new RegExp();        
-StringTokenizer st=new StringTokenizer(sIn,"= ",true);
+RegExp re=new RegExp(); 
+ StringTokenizer st=new StringTokenizer(sIn,"= ",true);
         System.out.println(sIn);
         if(sIn.substring(0,3).equals("set")||(sIn.substring(0,substringOffset).equals(osNewLine+"set"))){
             Var var=new Var();
@@ -57,8 +70,16 @@ else if(re.test(StringStmp,"^<\\w+>$")){
             System.out.println("String:"+StringStmp);//<<<  isSet
             var.setValue(StringStmp); //<<< set String
         }
+else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equals("double")|| StringStmp.equals("String")|| StringStmp.equals("char")|| StringStmp.equals("boolean")){
+            System.out.println("Type:"+StringStmp);//<<<  isSet
+            var.setType(StringStmp); //<<< set Type<<<
+        }
+
 
     }
+            mapForVarClasses.put(var.getIndificator(), var);
+            System.out.println(var);
+            System.out.println("----------");
 
     }
         else if(re.test(sIn,"^%\\w+%$")|| re.test(sIn,"^"+osNewLine+"%\\w+%$")){
@@ -77,7 +98,14 @@ if(re.test(StringStmp,"^\\%\\w+\\%$")){
 
         }
 }
+        
 }
+
+    @Override
+    public String toString() {
+        return "ExpParser{" + "mapForVarClasses=" + mapForVarClasses + '}';
+    }
+    
 }
 
 
@@ -94,6 +122,7 @@ public static void main(String args[]){
         String str=it.next();
         ep.oper(str,"\r\n",5);
     }
+    System.out.println(ep);
 
 }
 }
