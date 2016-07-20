@@ -20,8 +20,7 @@ class ReadBytes{
     public ArrayList<String> read(char delimeter){
    
         int charRead = 0;
-char buffer[]=new char[256];//буфер для строки из цикла
-char bufferOut[];
+
 
 
      bf=mr.getBuffered_reader();
@@ -41,8 +40,10 @@ sb.append(s);
 else if((char)charRead ==delimeter)
     sb.append(';');
        
-         
+else if(((char)charRead=='?')|| ((char)charRead=='\n') ||((char)charRead=='\uffff'))
+        sb.append(' ');         
   }
+
      StringTokenizer st=new StringTokenizer(sb.toString(),";",false);
 while(st.hasMoreTokens()){
 String StringStmp=st.nextToken();
@@ -62,6 +63,8 @@ try{
 System.err.println("Oshibka zakritiya faila["+ioEx+"]");
    
 }
+l.remove(l.size()-1);
+
 return l;
 }
     }

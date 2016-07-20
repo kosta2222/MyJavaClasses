@@ -7,7 +7,9 @@ import java.util.StringTokenizer;
 class ExpParser{
     public void oper(String sIn){
 RegExp re=new RegExp();        
-StringTokenizer st=new StringTokenizer(sIn,"= ",true);
+StringTokenizer st=new StringTokenizer(sIn,"=",true);
+        System.out.println(sIn);
+        if(sIn.substring(0,3).equals("set")){
 while(st.hasMoreTokens()){
 String StringStmp=st.nextToken();
 
@@ -23,8 +25,10 @@ else if(re.test(StringStmp,"^\\d+\\.\\d+")){
      System.out.println("number float :"+StringStmp);   
         }
 
-}
 
+    }
+    }else
+            System.out.println("function:"+sIn);
 }
 }
 
