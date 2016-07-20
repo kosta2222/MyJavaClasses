@@ -48,11 +48,11 @@ class ExpParser{
         mapForVarClasses=new HashMap<String,Var>();
     }
     
-    public void oper(String sIn,String osNewLine,int substringOffset){//substringOffset depends of osNewLine
+    public void oper(String sIn,String osNewLine,int substringOffsetForWordSet,int substringOffsetForUseVar){//substringOffset depends of osNewLine
 RegExp re=new RegExp(); 
  StringTokenizer st=new StringTokenizer(sIn,"= ",true);
         System.out.println(sIn);
-        if(sIn.substring(0,3).equals("set")||(sIn.substring(0,substringOffset).equals(osNewLine+"set"))){
+        if(sIn.substring(0,3).equals("set")||(sIn.substring(0,substringOffsetForWordSet).equals(osNewLine+"set"))){
             Var var=new Var();
 while(st.hasMoreTokens()){
 String StringStmp=st.nextToken();
@@ -84,7 +84,16 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
     }
         else if(re.test(sIn,"^%\\w+%$")|| re.test(sIn,"^"+osNewLine+"%\\w+%$")){
             System.out.println("Use Var:"+sIn);
-        }else{
+            String str=sIn.substring(substringOffsetForUseVar,sIn.length()-1);
+            System.out.println("***********");
+            System.out.println(str);
+            System.out.println("***********");
+            
+            Var myVar=(Var)mapForVarClasses.get(str);
+            System.out.println("))))))))))))))");
+            System.out.println(sIn+"="+myVar.getValue());
+            System.out.println(")))))))))))))))");
+        }else{                              //<<<in Function
             System.out.println("function:"+sIn);
             StringTokenizer st_w=new StringTokenizer(sIn,"()",true);
             while(st_w.hasMoreTokens()){
@@ -130,7 +139,7 @@ public static void main(String args[]){
     Iterator<String> it=l.iterator();
     while(it.hasNext()){
         String str=it.next();
-        ep.oper(str,"\r\n",5);
+        ep.oper(str,"\r\n",5,3);////// esli eto \r\n t e 2 to 1arg=2+3 2arg=2+1/////////
     }
     System.out.println(ep);
 
