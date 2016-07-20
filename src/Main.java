@@ -17,18 +17,31 @@ if(re.test(StringStmp,"^\\d+$"))
 {
     System.out.println("number int :"+StringStmp);
 }
-//else if(!re.test(StringStmp,"^\\d+$"))
-//{
-//    re.message(false,"Eto ne number int");
-//}
+
 else if(re.test(StringStmp,"^\\d+\\.\\d+")){
      System.out.println("number float :"+StringStmp);   
         }
 
 
     }
-    }else
+
+    }
+        else if(re.test(sIn,"^\\%\\w+\\%")){
+            System.out.println("Use Var:"+sIn);
+        }else{
             System.out.println("function:"+sIn);
+            StringTokenizer st_w=new StringTokenizer(sIn,"()",true);
+            while(st_w.hasMoreTokens()){
+String StringStmp=st_w.nextToken();
+if(re.test(StringStmp,"^\\%\\w+\\%")){
+            System.out.println("Use Var:"+StringStmp);
+}
+
+              
+
+
+        }
+}
 }
 }
 
