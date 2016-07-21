@@ -46,7 +46,7 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             
 
     }
-        else if(re.test(sIn,"^mat_op(\\w+\\%+\\+ + \\- + \\* + \\/+ \\^ +)$")){//<<<Mat expression
+        else if(re.test(sIn,"mat_op\\(%\\w+?%([-+*/^]%\\w+?%)+\\)")){//<<<Mat expression
             System.out.println("mat op: "+sIn);
             String stringTmp="";
             StringTokenizer st_mat_op=new StringTokenizer(sIn,"mat_op()+-*/^",true);
