@@ -1,8 +1,2 @@
 
-set String i_myVar=s_Ko_ot_Go_pokemon;
-
-%i_myVar%;
-
-set int i_myVar2=100;
-
-%i_myVar2%;
+mat_op(%i_Muko%+%i_myVar2%);

@@ -5,42 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
-class Var{
-private String type;
-private String indificator;
-private String value;
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setIndificator(String indificator) {
-        this.indificator = indificator;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getIndificator() {
-        return indificator;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return  "type=" + type + ", indificator=" + indificator + ", value=" + value ;
-    }
-    
-
-}
 class ExpParser{
     Map  mapForVarClasses=null;
 
@@ -48,14 +13,13 @@ class ExpParser{
         mapForVarClasses=new HashMap<String,Var>();
     }
     
-    public void oper(String sIn){//,String osNewLine,int substringOffsetForWordSet,int substringOffsetForUsedVarsubstringOffset depends of osNewLine
+    public void oper(String sIn){
 RegExp re=new RegExp(); 
  StringTokenizer st=new StringTokenizer(sIn,"= ",true);
         System.out.println(sIn);
         if(sIn.substring(0,3).equals("set")){
             Var var=new Var();
-            StringBuilder sb=new StringBuilder();
-while(st.hasMoreTokens()){
+            while(st.hasMoreTokens()){
 String StringStmp=st.nextToken();
 
 if(re.test(StringStmp,"^\\d+$") || re.test(StringStmp,"^\\d+\\.\\d+$"))
@@ -68,7 +32,7 @@ else if(re.test(StringStmp,"^i_\\w+$")){
             var.setIndificator(StringStmp);//<<< set Indificator
         }else if(re.test(StringStmp,"^s_\\w+$")){
             //***System.out.println("Indificator:"+StringStmp);//<<< isSet
-            var.setValue(StringStmp);//<<< set Indificator
+            var.setValue(StringStmp);//<<< set String
         }
 
 else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equals("double")|| StringStmp.equals("String")|| StringStmp.equals("char")|| StringStmp.equals("boolean")){
@@ -81,6 +45,21 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             mapForVarClasses.put(var.getIndificator(), var);
             
 
+    }
+        else if(re.test(sIn,"^mat_op(\\w+\\%+\\+ + \\- + \\* + \\/+ \\^ +)$")){//<<<Mat expression
+            System.out.println("mat op: "+sIn);
+            String stringTmp="";
+            StringTokenizer st_mat_op=new StringTokenizer(sIn,"mat_op()+-*/^",true);
+            StringBuilder  sb_mat_op=new StringBuilder();
+            while(st_mat_op.hasMoreTokens()){
+                stringTmp=st_mat_op.nextToken();
+                sb_mat_op.append(stringTmp);
+                System.out.println("..........");
+                System.out.println(sb_mat_op.toString());
+                System.out.println("..........");
+                
+            }
+            
     }
         else if(re.test(sIn,"^%\\w+%$")){//in Used Vars//
             ///***System.out.println("Use Var:"+sIn);

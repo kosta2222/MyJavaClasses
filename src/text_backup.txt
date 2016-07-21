@@ -1,3 +1,12 @@
 set int myVar=700.675;
 set String myVar2=Privet;
 MyOut(%myVar%);set float a=18;
+set String i_myVar=s_Ko_ot_Go_pokemon;
+
+%i_myVar%;
+
+set int i_myVar2=100;
+
+%i_myVar2%;
+set int i_MuKo=123;
+%i_MuKo%;
