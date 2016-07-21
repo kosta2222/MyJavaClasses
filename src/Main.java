@@ -49,16 +49,36 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
         else if(re.test(sIn,"mat_op\\(%\\w+?%([-+*/^]%\\w+?%)+\\)")){//<<<Mat expression
             System.out.println("mat op: "+sIn);
             String stringTmp="";
-            StringTokenizer st_mat_op=new StringTokenizer(sIn,"mat_op()+-*/^",true);
+            String stringS=sIn.substring(6,sIn.length());
+            StringTokenizer st_mat_op=new StringTokenizer(stringS,"()+-*/^",true);
             StringBuilder  sb_mat_op=new StringBuilder();
             while(st_mat_op.hasMoreTokens()){
                 stringTmp=st_mat_op.nextToken();
-                sb_mat_op.append(stringTmp);
+                if(re.test(stringTmp,"^%\\w+%$")){//in Used Vars//
+            ///***System.out.println("Use Var:"+sIn);
+            String str=stringTmp.substring(1,stringTmp.length()-1);
+            //System.out.println("***********");
+            //System.out.println(str);//get Vars
+            //System.out.println("***********");
+            
+            Var myVar=(Var)mapForVarClasses.get(str);
+            sb_mat_op.append(myVar.getValue());
+            //System.out.println("))))))))))))))");
+            //System.out.println(sIn+"="+myVar.getValue());
+            //System.out.println(")))))))))))))))");
+        }else{
+                    sb_mat_op.append(stringTmp);
+                }
+                //sb_mat_op.append(stringTmp);
+                //System.out.println("..........");
+                //System.out.println(sb_mat_op.toString());
+                //System.out.println("..........");
+                
+            }
+          
                 System.out.println("..........");
                 System.out.println(sb_mat_op.toString());
                 System.out.println("..........");
-                
-            }
             
     }
         else if(re.test(sIn,"^%\\w+%$")){//in Used Vars//
