@@ -1,5 +1,8 @@
 
-set int i_myVar=700.675;
-set String i_myVar2=<Privet>;
-MyOut(%i_myVar%);set float i_a=18;
+set String i_myVar=s_Ko_ot_Go_pokemon;
+
 %i_myVar%;
+
+set int i_myVar2=100;
+
+%i_myVar2%;

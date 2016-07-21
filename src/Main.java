@@ -54,6 +54,7 @@ RegExp re=new RegExp();
         System.out.println(sIn);
         if(sIn.substring(0,3).equals("set")){
             Var var=new Var();
+            StringBuilder sb=new StringBuilder();
 while(st.hasMoreTokens()){
 String StringStmp=st.nextToken();
 
@@ -65,11 +66,11 @@ if(re.test(StringStmp,"^\\d+$") || re.test(StringStmp,"^\\d+\\.\\d+$"))
 else if(re.test(StringStmp,"^i_\\w+$")){
             //***System.out.println("Indificator:"+StringStmp);//<<< isSet
             var.setIndificator(StringStmp);//<<< set Indificator
+        }else if(re.test(StringStmp,"^s_\\w+$")){
+            //***System.out.println("Indificator:"+StringStmp);//<<< isSet
+            var.setValue(StringStmp);//<<< set Indificator
         }
-else if(re.test(StringStmp,"^<\\w+>$")){
-            ///***System.out.println("String:"+StringStmp);//<<<  isSet
-            var.setValue(StringStmp); //<<< set String
-        }
+
 else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equals("double")|| StringStmp.equals("String")|| StringStmp.equals("char")|| StringStmp.equals("boolean")){
             //****System.out.println("Type:"+StringStmp);//<<<  isSet
             var.setType(StringStmp); //<<< set Type<<<
@@ -107,7 +108,7 @@ if(re.test(StringStmp,"^\\%\\w+\\%$")){
             Var myVar=(Var)mapForVarClasses.get(str);
             System.out.println("))))))))))))))");
             System.out.println(StringStmp+"="+myVar.getValue());
-            System.out.println(")))))))))))))))");
+            System.out.println("))))))))))))))");
             
 }
 
