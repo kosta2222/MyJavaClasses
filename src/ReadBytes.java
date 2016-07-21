@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-
 class ReadBytes{
     FileRider mr;
     BufferedReader bf;
@@ -20,36 +19,44 @@ class ReadBytes{
     public ArrayList<String> read(char delimeter){
    
         int charRead = 0;
-char buffer[]=new char[256];//буфер для строки из цикла
-char bufferOut[];
+
 
 
      bf=mr.getBuffered_reader();
     try{
 if (bf != null){
-int i = 0;
-while (charRead != -1){
+//int i = 0;
+StringBuilder sTmp=null;
+while (charRead != -1 ){
 charRead = bf.read();
 
-if ((char)charRead !=delimeter){
+/*if ((char)charRead !=delimeter){
     
 
 String s=String.valueOf((char)charRead);
 sb.append(s);
 
-}
-else if((char)charRead ==delimeter)
-    sb.append(';');
+}*/
+
+ if((char)charRead !=delimeter &((char)charRead!='\n' & (char)charRead!='\r')){
+    String s=String.valueOf((char)charRead);
+   sTmp=sb.append(s);
+   
        
-         
+        }else if((char)charRead ==delimeter ){
+            l.add(sTmp.toString());
+            sTmp.delete(0,sTmp.length());
+        }
+       
+ 
   }
-     StringTokenizer st=new StringTokenizer(sb.toString(),";",false);
-while(st.hasMoreTokens()){
-String StringStmp=st.nextToken();
-l.add(StringStmp);
+
+     
+
+
 
 }
-}
+
 }catch(IOException ioEx){
 System.err.println("Oshibka chteniya faila["+ioEx+"]");
 
@@ -62,15 +69,22 @@ try{
 System.err.println("Oshibka zakritiya faila["+ioEx+"]");
    
 }
+//l.remove(l.size()-1);
+
 return l;
 }
     }
 
-/*class Main  {
+    
+
+
+
+class Main  {
 public static void main(String args[]){
 File f=new File("D:\\NetBeansProjects\\MyOwnLan\\src\\text.dat");
     ReadBytes rb=new ReadBytes(f,"cp1251");
-     System.out.println(rb.read(']'));
+     //rb.read(']');
+     System.out.println(rb.read(';'));
 }
-}*/
+}
 
