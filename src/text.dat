@@ -1,3 +1,4 @@
+
 set int i_myVar=700.675;
 set String i_myVar2=<Privet>;
 MyOut(%i_myVar%);set float i_a=18;

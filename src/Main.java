@@ -48,61 +48,60 @@ class ExpParser{
         mapForVarClasses=new HashMap<String,Var>();
     }
     
-    public void oper(String sIn,String osNewLine,int substringOffsetForWordSet,int substringOffsetForUseVar){//substringOffset depends of osNewLine
+    public void oper(String sIn){//,String osNewLine,int substringOffsetForWordSet,int substringOffsetForUsedVarsubstringOffset depends of osNewLine
 RegExp re=new RegExp(); 
  StringTokenizer st=new StringTokenizer(sIn,"= ",true);
         System.out.println(sIn);
-        if(sIn.substring(0,3).equals("set")||(sIn.substring(0,substringOffsetForWordSet).equals(osNewLine+"set"))){
+        if(sIn.substring(0,3).equals("set")){
             Var var=new Var();
 while(st.hasMoreTokens()){
 String StringStmp=st.nextToken();
 
 if(re.test(StringStmp,"^\\d+$") || re.test(StringStmp,"^\\d+\\.\\d+$"))
 {
-    System.out.println("number int or float :"+StringStmp);//<<< isSet
+    //***System.out.println("number int or float :"+StringStmp);//<<< isSet
     var.setValue(StringStmp);//<<< set int/float
 }
 else if(re.test(StringStmp,"^i_\\w+$")){
-            System.out.println("Indificator:"+StringStmp);//<<< isSet
+            //***System.out.println("Indificator:"+StringStmp);//<<< isSet
             var.setIndificator(StringStmp);//<<< set Indificator
         }
 else if(re.test(StringStmp,"^<\\w+>$")){
-            System.out.println("String:"+StringStmp);//<<<  isSet
+            ///***System.out.println("String:"+StringStmp);//<<<  isSet
             var.setValue(StringStmp); //<<< set String
         }
 else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equals("double")|| StringStmp.equals("String")|| StringStmp.equals("char")|| StringStmp.equals("boolean")){
-            System.out.println("Type:"+StringStmp);//<<<  isSet
+            //****System.out.println("Type:"+StringStmp);//<<<  isSet
             var.setType(StringStmp); //<<< set Type<<<
         }
 
 
     }
             mapForVarClasses.put(var.getIndificator(), var);
-            System.out.println(var);
-            System.out.println("----------");
+            
 
     }
-        else if(re.test(sIn,"^%\\w+%$")|| re.test(sIn,"^"+osNewLine+"%\\w+%$")){
-            System.out.println("Use Var:"+sIn);
-            String str=sIn.substring(substringOffsetForUseVar,sIn.length()-1);
+        else if(re.test(sIn,"^%\\w+%$")){//in Used Vars//
+            ///***System.out.println("Use Var:"+sIn);
+            String str=sIn.substring(1,sIn.length()-1);
             System.out.println("***********");
-            System.out.println(str);
+            System.out.println(str);//get Vars
             System.out.println("***********");
             
             Var myVar=(Var)mapForVarClasses.get(str);
             System.out.println("))))))))))))))");
             System.out.println(sIn+"="+myVar.getValue());
             System.out.println(")))))))))))))))");
-        }else{                              //<<<in Function
+        }else{                              //<<<in Function:this is arguments in Function//
             System.out.println("function:"+sIn);
             StringTokenizer st_w=new StringTokenizer(sIn,"()",true);
             while(st_w.hasMoreTokens()){
 String StringStmp=st_w.nextToken();
 if(re.test(StringStmp,"^\\%\\w+\\%$")){
-            System.out.println("Use Var:"+StringStmp);
+            ///***System.out.println("Use Var:"+StringStmp);
             String str=StringStmp.substring(1,StringStmp.length()-1);
             System.out.println("***********");
-            System.out.println(str);
+            System.out.println(str); //get Vars
             System.out.println("***********");
             
             Var myVar=(Var)mapForVarClasses.get(str);
@@ -139,9 +138,9 @@ public static void main(String args[]){
     Iterator<String> it=l.iterator();
     while(it.hasNext()){
         String str=it.next();
-        ep.oper(str,"\r\n",5,3);////// esli eto \r\n t e 2 to 1arg=2+3 2arg=2+1/////////
+        ep.oper(str);////// esli eto \r\n t e 2 to 1arg=2+3 2arg=2+1/////////
     }
-    System.out.println(ep);
+    //System.out.println(ep);
 
 }
 }
