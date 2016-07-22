@@ -2,12 +2,43 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
+class StringTokenizerPlusHT{
+private HashMap <String,Var> mapForVarClasses=null;
+private StringTokenizer st=null;
+private StringBuilder sb=null;
+private RegExp re=null;
+    public StringTokenizerPlusHT(HashMap <String,Var> mapForVarClasses) {
+        this.mapForVarClasses=mapForVarClasses;
+        sb=new StringBuilder();
+        re=new RegExp();
+        
+    }
+    public String getValueString(String sIn,String delimeters){
+     st=new StringTokenizer(sIn,delimeters,true);
+    while(st.hasMoreTokens()){
+    String stringTmp=st.nextToken();
+    if(re.test(stringTmp,"^%\\w+%$")){//in Used Vars//
+           String str=stringTmp.substring(1,stringTmp.length()-1);
+                       
+            Var myVar=(Var)mapForVarClasses.get(str);
+            sb.append(myVar.getValue());
+            
+        }else{
+                    sb.append(stringTmp);
+                }
+    }
 
+    
+return sb.toString();
+
+}
+}
 class ExpParser{
-    Map  mapForVarClasses=null;
+    HashMap  mapForVarClasses=null;
 
     public ExpParser() {
         mapForVarClasses=new HashMap<String,Var>();
@@ -15,11 +46,11 @@ class ExpParser{
     
     public void oper(String sIn){
 RegExp re=new RegExp(); 
- StringTokenizer st=new StringTokenizer(sIn,"= ",true);
+ StringTokenizer st=new StringTokenizer(sIn,"= ",true);//string tokenizer dlya stroki expression
         System.out.println(sIn);
-        if(sIn.substring(0,3).equals("set")){
+        if(sIn.substring(0,3).equals("set")){//esli sIn eto "set"
             Var var=new Var();
-            while(st.hasMoreTokens()){
+            while(st.hasMoreTokens()){//cicl string tokenizer dlya Vars to set
 String StringStmp=st.nextToken();
 
 if(re.test(StringStmp,"^\\d+$") || re.test(StringStmp,"^\\d+\\.\\d+$"))
@@ -46,39 +77,13 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             
 
     }
-        else if(re.test(sIn,"mat_op\\(%\\w+?%([-+*/^]%\\w+?%)+\\)")){//<<<Mat expression
+        else if(re.test(sIn,"mat_op\\[%\\w+?%([-+*/^]%\\w+?%)+\\]")){//<<<Mat expression
             System.out.println("mat op: "+sIn);
-            String stringTmp="";
-            String stringS=sIn.substring(6,sIn.length());
-            StringTokenizer st_mat_op=new StringTokenizer(stringS,"()+-*/^",true);
-            StringBuilder  sb_mat_op=new StringBuilder();
-            while(st_mat_op.hasMoreTokens()){
-                stringTmp=st_mat_op.nextToken();
-                if(re.test(stringTmp,"^%\\w+%$")){//in Used Vars//
-            ///***System.out.println("Use Var:"+sIn);
-            String str=stringTmp.substring(1,stringTmp.length()-1);
-            //System.out.println("***********");
-            //System.out.println(str);//get Vars
-            //System.out.println("***********");
             
-            Var myVar=(Var)mapForVarClasses.get(str);
-            sb_mat_op.append(myVar.getValue());
-            //System.out.println("))))))))))))))");
-            //System.out.println(sIn+"="+myVar.getValue());
-            //System.out.println(")))))))))))))))");
-        }else{
-                    sb_mat_op.append(stringTmp);
-                }
-                //sb_mat_op.append(stringTmp);
-                //System.out.println("..........");
-                //System.out.println(sb_mat_op.toString());
-                //System.out.println("..........");
-                
-            }
-          
-                System.out.println("..........");
-                System.out.println(sb_mat_op.toString());
-                System.out.println("..........");
+            String stringS=sIn.substring(6,sIn.length());
+            StringTokenizerPlusHT stpht=new StringTokenizerPlusHT(mapForVarClasses);
+            System.out.println(stpht.getValueString(stringS,"[]+-*^"));
+            
             
     }
         else if(re.test(sIn,"^%\\w+%$")){//in Used Vars//

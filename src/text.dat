@@ -2,4 +2,4 @@ set int i_Muko=1;
 set int i_myVar2=12;
 set int i_yyynnu=32;
 
-mat_op(%i_Muko%+%i_myVar2%+%i_yyynnu%);
+mat_op[%i_Muko%+%i_myVar2%+%i_yyynnu%];
