@@ -24,7 +24,7 @@ private RegExp re=null;
     while(st.hasMoreTokens()){
     String stringTmp=st.nextToken();
     if(!stringTmp.equals("[")&!stringTmp.equals("]")){
-    if(re.test(stringTmp,"^%\\w+%$")){//in Used Vars//
+    if(re.test(stringTmp,"^%\\w+%$","Ne used var")){//in Used Vars//
            String str=stringTmp.substring(1,stringTmp.length()-1);
                        
             Var myVar=(Var)mapForVarClasses.get(str);
@@ -57,15 +57,15 @@ RegExp re=new RegExp();
             while(st.hasMoreTokens()){//cicl string tokenizer dlya Vars to set
 String StringStmp=st.nextToken();
 
-if(re.test(StringStmp,"^\\d+$") || re.test(StringStmp,"^\\d+\\.\\d+$"))
+if(re.test(StringStmp,"^\\d+$","Ne int") || re.test(StringStmp,"^\\d+\\.\\d+$","Ne double"))
 {
     
     var.setValue(StringStmp);//<<< set int/float
 }
-else if(re.test(StringStmp,"^i_\\w+$")){
+else if(re.test(StringStmp,"^i_\\w+$","Ne indificator")){
             
             var.setIndificator(StringStmp);//<<< set Indificator
-        }else if(re.test(StringStmp,"^s_\\w+$")){
+        }else if(re.test(StringStmp,"^s_\\w+$","Ne stroka")){
             
             var.setValue(StringStmp);//<<< set String
         }
@@ -80,7 +80,7 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             mapForVarClasses.put(var.getIndificator(), var);
             
 
-    }else if(re.test(sIn,"mat_op\\[%\\w+?%([-+*/^]%\\w+?%)+\\]")){//<<<Mat expression
+    }else if(re.test(sIn,"mat_op\\[%\\w+?%([-+*/^]%\\w+?%)+\\]","Ne matem operasiya")){//<<<Mat expression
             //System.out.println("mat op: "+sIn);
             Calc myCalc=new Calc();
             String stringS=sIn.substring(6,sIn.length());
@@ -99,7 +99,7 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             
             
     }
-        else if(re.test(sIn,"^%\\w+%$")){//in Used Vars//
+        else if(re.test(sIn,"^%\\w+%$","Ne used Var")){//in Used Vars//
             
             String str=sIn.substring(1,sIn.length()-1);
             System.out.println("***********");
@@ -116,7 +116,7 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             StringTokenizer st_w=new StringTokenizer(sIn,"()",true);
             while(st_w.hasMoreTokens()){
 String StringStmp=st_w.nextToken();
-if(re.test(StringStmp,"^\\%\\w+\\%$")){
+if(re.test(StringStmp,"^\\%\\w+\\%$","Ne used Var in Function")){
             ///***System.out.println("Use Var:"+StringStmp);
             String str=StringStmp.substring(1,StringStmp.length()-1);
             System.out.println("***********");
