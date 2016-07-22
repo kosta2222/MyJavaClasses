@@ -80,12 +80,12 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             mapForVarClasses.put(var.getIndificator(), var);
             
 
-    }else if(re.test(sIn,"mat_op\\[%\\w+?%([-+*/^]%\\w+?%)+\\]")){//<<<Mat expression
+    }else if(sIn.substring(0,6).equals("mat_op")){//<<<Mat expression
             //System.out.println("mat op: "+sIn);
             Calc myCalc=new Calc();
             String stringS=sIn.substring(6,sIn.length());
             StringTokenizerPlusHT stpht=new StringTokenizerPlusHT(mapForVarClasses);
-            String sCalc=stpht.getValueString(stringS,"[]+-*/^");
+            String sCalc=stpht.getValueString(stringS,"[]()+-*/^");
             //System.out.println(sCalc);
              try{
                  System.out.println(sIn+"="+sCalc+"="+myCalc.calculate(myCalc.opn(sCalc)));
