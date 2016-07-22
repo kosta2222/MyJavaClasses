@@ -19,8 +19,10 @@ private RegExp re=null;
     }
     public String getValueString(String sIn,String delimeters){
      st=new StringTokenizer(sIn,delimeters,true);
+    
     while(st.hasMoreTokens()){
     String stringTmp=st.nextToken();
+    if(!stringTmp.equals("[")&!stringTmp.equals("]")){
     if(re.test(stringTmp,"^%\\w+%$")){//in Used Vars//
            String str=stringTmp.substring(1,stringTmp.length()-1);
                        
@@ -30,6 +32,7 @@ private RegExp re=null;
         }else{
                     sb.append(stringTmp);
                 }
+    }
     }
 
     
@@ -55,19 +58,19 @@ String StringStmp=st.nextToken();
 
 if(re.test(StringStmp,"^\\d+$") || re.test(StringStmp,"^\\d+\\.\\d+$"))
 {
-    //***System.out.println("number int or float :"+StringStmp);//<<< isSet
+    
     var.setValue(StringStmp);//<<< set int/float
 }
 else if(re.test(StringStmp,"^i_\\w+$")){
-            //***System.out.println("Indificator:"+StringStmp);//<<< isSet
+            
             var.setIndificator(StringStmp);//<<< set Indificator
         }else if(re.test(StringStmp,"^s_\\w+$")){
-            //***System.out.println("Indificator:"+StringStmp);//<<< isSet
+            
             var.setValue(StringStmp);//<<< set String
         }
 
 else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equals("double")|| StringStmp.equals("String")|| StringStmp.equals("char")|| StringStmp.equals("boolean")){
-            //****System.out.println("Type:"+StringStmp);//<<<  isSet
+            
             var.setType(StringStmp); //<<< set Type<<<
         }
 
@@ -76,18 +79,17 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             mapForVarClasses.put(var.getIndificator(), var);
             
 
-    }
-        else if(re.test(sIn,"mat_op\\[%\\w+?%([-+*/^]%\\w+?%)+\\]")){//<<<Mat expression
+    }else if(re.test(sIn,"mat_op\\[%\\w+?%([-+*/^]%\\w+?%)+\\]")){//<<<Mat expression
             System.out.println("mat op: "+sIn);
             
             String stringS=sIn.substring(6,sIn.length());
             StringTokenizerPlusHT stpht=new StringTokenizerPlusHT(mapForVarClasses);
-            System.out.println(stpht.getValueString(stringS,"[]+-*^"));
+            System.out.println(stpht.getValueString(stringS,"[]()+-*^"));
             
             
     }
         else if(re.test(sIn,"^%\\w+%$")){//in Used Vars//
-            ///***System.out.println("Use Var:"+sIn);
+            
             String str=sIn.substring(1,sIn.length()-1);
             System.out.println("***********");
             System.out.println(str);//get Vars
@@ -97,7 +99,8 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             System.out.println("))))))))))))))");
             System.out.println(sIn+"="+myVar.getValue());
             System.out.println(")))))))))))))))");
-        }else{                              //<<<in Function:this is arguments in Function//
+        }
+        else{                              //<<<in Function:this is arguments in Function//
             System.out.println("function:"+sIn);
             StringTokenizer st_w=new StringTokenizer(sIn,"()",true);
             while(st_w.hasMoreTokens()){

@@ -3,3 +3,7 @@ set int i_myVar2=12;
 set int i_yyynnu=32;
 
 mat_op[%i_Muko%+%i_myVar2%+%i_yyynnu%];
+
+set int i_sana=2;
+%i_sana%;
+mat_op[%i_Muko%+%i_myVar2%+%i_yyynnu%^%i_sana%];
