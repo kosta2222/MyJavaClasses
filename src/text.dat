@@ -6,7 +6,4 @@ mat_op[%i_Muko%+%i_myVar2%+%i_yyynnu%];
 
 set int i_sana=2;
 %i_sana%;
-mat_op[sin(%i_Muko%)+cos(%i_myVar2%+%i_yyynnu%^%i_sana%)];
-mat_op[u(%i_sana%)];
-set i_myNew=mat_op[cos(%i_myVar2%+%i_yyynnu%^%i_sana%)];
-%i_myNew%;
+mat_op[(%i_Muko%)+(%i_myVar2%+%i_yyynnu%^%i_sana%)];
