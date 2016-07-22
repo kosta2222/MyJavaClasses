@@ -3,16 +3,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class RegExp{
-public boolean test(String testString,String pattern,String erMes){
+public boolean test(String testString,String pattern){
 Pattern p=Pattern.compile(pattern);
 Matcher m=p.matcher(testString);
-
-
- if(m.matches())  
-return true;
- else
-        System.out.println("Error["+erMes+"]");
-return false;
+return m.matches();}
+public void message(boolean bool,String message){
+    if(bool==false)
+        System.out.println("Error ["+message+"]");
 }
 }
 
