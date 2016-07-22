@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
+import com.kosta.opn.Calc;
 class StringTokenizerPlusHT{
 private HashMap <String,Var> mapForVarClasses=null;
 private StringTokenizer st=null;
@@ -80,11 +81,21 @@ else if(StringStmp.equals("int") || StringStmp.equals("float")|| StringStmp.equa
             
 
     }else if(re.test(sIn,"mat_op\\[%\\w+?%([-+*/^]%\\w+?%)+\\]")){//<<<Mat expression
-            System.out.println("mat op: "+sIn);
-            
+            //System.out.println("mat op: "+sIn);
+            Calc myCalc=new Calc();
             String stringS=sIn.substring(6,sIn.length());
             StringTokenizerPlusHT stpht=new StringTokenizerPlusHT(mapForVarClasses);
-            System.out.println(stpht.getValueString(stringS,"[]()+-*^"));
+            String sCalc=stpht.getValueString(stringS,"[]+-*/^");
+            //System.out.println(sCalc);
+             try{
+                 System.out.println(sIn+"="+sCalc+"="+myCalc.calculate(myCalc.opn(sCalc)));
+    }
+    catch(Exception e){
+        javax.swing.JOptionPane.showMessageDialog(null, e);
+    }
+
+            //System.out.println(stpht.getValueString(stringS,"[]()+-*^"));
+            
             
             
     }
