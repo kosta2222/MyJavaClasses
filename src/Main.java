@@ -150,7 +150,14 @@ if(re.test(StringStmp,"^\\%\\w+\\%$")){
 
 class Main  {
 public static void main(String args[]){
-    File f=new File("D:\\NetBeansProjects\\MyOwnLan\\src\\text.dat");
+    String arg="";
+    if(args.length!=0){
+     arg=args[0];   
+      
+    }else{
+        System.out.println("ussage Main <file>");
+    }
+    File f=new File(arg);
     ReadBytes rb=new ReadBytes(f,"cp1251");
     ArrayList l=rb.read(';');
     ExpParser ep=new ExpParser();
